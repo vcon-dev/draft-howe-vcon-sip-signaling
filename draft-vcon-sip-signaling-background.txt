@@ -1,0 +1,374 @@
+Background Notes and Design Reasoning
+draft-vcon-sip-signaling-00
+
+Prepared for handoff to support continued development.
+Last updated: 2026-02-25
+
+
+1. WHAT THIS DOCUMENT IS
+
+This is the companion background document for draft-vcon-sip-signaling-00,
+an IETF Internet-Draft that defines a vCon extension for SIP signaling
+metadata and STIR/SHAKEN certificate data. The I-D was developed over
+multiple working sessions and this document captures the design reasoning,
+open questions, and areas for further work that are not visible in the
+spec itself.
+
+
+2. SOURCE MATERIALS AND REFERENCES
+
+The spec was developed by reading and cross-referencing these documents:
+
+  - draft-ietf-vcon-vcon-core-02 (the base vCon specification)
+  - draft-ietf-vcon-overview-01 (the vCon overview/use case document)
+  - RFC 3261 (SIP)
+  - RFC 8224/8226 (STIR, PASSporT)
+  - RFC 8588 (SHAKEN)
+  - RFC 5589 (SIP call transfer)
+
+The core spec's Section 2.5 "Extending vCon" was the primary guide for
+how to properly write an extension. That section lays out the requirements:
+define an extension token, register it with IANA, define new parameters
+and register them, use snake_case naming, and classify as Compatible or
+Incompatible.
+
+
+3. KEY DESIGN DECISIONS AND REASONING
+
+3.1. Compatible Extension Classification
+
+The extension is classified as Compatible (not Incompatible/critical).
+This was a deliberate choice. The SIP data is additive metadata that
+enriches a vCon but is not required to interpret the base conversation.
+A consumer that does not understand sip-signaling can still process the
+parties, dialog recordings, transcripts, and analysis objects normally.
+It just ignores the extra attachment purpose values and the new party/
+dialog parameters.
+
+This means the extension name "sip-signaling" goes into the extensions
+array but NOT into the critical array. Implementations that encounter
+a vCon with this extension listed can safely process it even without
+supporting the extension.
+
+3.2. Extension Token: "sip-signaling"
+
+The token name "sip-signaling" was chosen to be descriptive and scoped.
+Other candidates considered:
+  - "sip" (too broad, might conflict with future SIP extensions)
+  - "sip-metadata" (ambiguous, metadata could mean many things)
+  - "telephony" (too broad, not SIP-specific)
+  - "sip-stir" (too narrow, the extension covers more than just STIR)
+
+"sip-signaling" communicates that this is about SIP protocol signaling
+data specifically. It follows the snake_case convention required by the
+core spec (Section 2.5).
+
+3.3. Party Object Parameters (Section 4)
+
+Three new parameters added to the Party Object:
+  - sip_contact: The SIP Contact header URI
+  - sip_user_agent: The SIP User-Agent header value
+  - sip_display_name: The display name from the SIP From/To header
+
+Reasoning: The core vCon Party Object already has "sip" (for the SIP URI)
+and "stir" (for STIR/SHAKEN PASSporT data). The new parameters capture
+information that is commonly needed for troubleshooting and compliance
+but is not available through the existing fields.
+
+Why not just stuff everything into the existing "sip" field? Because "sip"
+is defined as the SIP Address of Record (AOR), which is a specific
+concept in SIP. The Contact URI is a different thing (the actual device
+endpoint). The User-Agent is a separate header entirely. Mixing them into
+one field would be semantically incorrect.
+
+3.4. Dialog Object Parameters (Section 5)
+
+Four new parameters added to the Dialog Object:
+  - sip_call_id: The SIP Call-ID header value
+  - sip_from_tag: The From header tag parameter
+  - sip_to_tag: The To header tag parameter
+  - sip_cseq: The final CSeq value
+
+Reasoning: These four values together form the SIP dialog identifier
+(RFC 3261 Section 12). The core vCon already has session_id which maps
+to the Session-ID header (RFC 7329), but Call-ID and tags are a separate
+identification mechanism that predates Session-ID and is still widely
+used.
+
+The sip_call_id + sip_from_tag + sip_to_tag triple is the canonical
+way to identify a SIP dialog. This is critical for correlating vCon
+data with SIP infrastructure logs, CDRs, and debugging traces.
+
+sip_cseq was included because it establishes the final state of the
+dialog transaction sequence and is needed when correlating partial
+message captures.
+
+3.5. Attachment Purpose Values (Section 6)
+
+This is the largest design area. 13 new attachment purpose values were
+defined. The core vCon Attachment Object has a "purpose" field that is
+a free-text string with no restricted set. This extension defines
+specific purpose values so that consumers can programmatically identify
+SIP-related attachments.
+
+The purpose values and their rationale:
+
+  sip-invite         The initial INVITE request. This is the most
+                     important single SIP message for understanding
+                     a call's setup parameters.
+
+  sip-response-1xx   Provisional responses (100 Trying, 180 Ringing,
+                     183 Session Progress). Grouped as a category
+                     rather than individual values because the specific
+                     1xx code is visible in the message itself.
+
+  sip-response-2xx   Success responses (200 OK). The response that
+                     establishes the dialog.
+
+  sip-response-err   Error responses (3xx-6xx). Grouped together
+                     because the specific error code is in the message.
+                     Splitting by class (3xx, 4xx, 5xx, 6xx) was
+                     considered but rejected as over-granular for the
+                     purpose field.
+
+  sip-bye            The BYE request that terminates the dialog.
+
+  sip-cancel         CANCEL request. Important for understanding
+                     abandoned calls.
+
+  sip-refer          REFER request. Critical for call transfer scenarios
+                     (RFC 5589).
+
+  sip-notify         NOTIFY requests, particularly those related to
+                     REFER progress.
+
+  sip-update         UPDATE requests that modify session parameters
+                     mid-call.
+
+  sip-message-trace  A structured JSON array containing multiple SIP
+                     messages in chronological order with timestamps.
+                     This is the "full capture" option for when you want
+                     the complete signaling flow rather than individual
+                     messages.
+
+  sip-sdp            Session Description Protocol bodies extracted from
+                     SIP messages. Useful when you want the media
+                     negotiation data without the full SIP message.
+
+  sip-header-summary A JSON object containing extracted header values.
+                     This is the lightweight option for when you want
+                     key metadata (Via hops, Route sets, etc.) without
+                     storing full raw messages.
+
+  stir-certificate   X.509 certificates from the STIR/SHAKEN trust
+                     chain. Stored as PEM-encoded bodies.
+
+  stir-verification-report  Structured JSON reporting the outcome of
+                     STIR/SHAKEN verification (verstat value, reasons
+                     for failure, certificate chain details).
+
+  stir-passport-extended    The full PASSporT token with any RCD
+                     (Rich Call Data) extensions beyond what fits in
+                     the Party Object's "stir" parameter.
+
+Design tradeoff on grouping: Individual purpose values per SIP method
+(sip-invite, sip-bye, etc.) vs. a single "sip-message" purpose with
+the method in the body. The individual approach was chosen because it
+allows consumers to quickly filter for specific message types without
+parsing the body. A compliance system that only needs INVITEs can
+query for purpose="sip-invite" without deserializing every SIP attachment.
+
+3.6. SIP Message Trace Format (Section 6.2)
+
+The trace format is a JSON array of objects, each with:
+  - timestamp (ISO 8601)
+  - direction ("sent" or "received")
+  - message (the raw SIP message text)
+
+This was designed to be simple and self-contained. Alternatives considered:
+  - PCAP format (too binary, hard to work with in JSON context)
+  - Homer/HEP format (too tied to specific tool ecosystem)
+  - SIP CLF (Common Log Format, RFC 6873) (structured but loses the
+    full message content)
+
+The chosen format preserves full message fidelity while adding the
+minimal metadata (timestamp and direction) needed to reconstruct the
+signaling flow.
+
+3.7. STIR/SHAKEN Data Architecture (Section 7)
+
+The relationship between the existing Party "stir" parameter and this
+extension's STIR attachments was a key design point. The approach:
+
+  - Party.stir continues to hold the PASSporT for the party (as defined
+    in the core spec)
+  - The extension adds attachments for the X.509 certificates,
+    verification reports, and extended PASSporT data that do not fit
+    in the Party Object
+
+This layered approach means a basic consumer gets the PASSporT from the
+Party Object (no extension needed), while an advanced consumer gets the
+full certificate chain and verification details from the attachments
+(extension needed).
+
+
+4. IANA REGISTRATION APPROACH
+
+The spec includes four IANA registration sections:
+
+  11.1. vCon Extension Names Registry - registers "sip-signaling"
+  11.2. Party Object Parameter Names - registers 3 parameters
+  11.3. Dialog Object Parameter Names - registers 4 parameters
+  11.4. Attachment Purpose Values - registers 13 purpose values
+
+These follow the templates defined in the core spec's Section 6. The
+registrations use "Specification Required" policy where the core spec
+does, which means IANA designated experts review before registration.
+
+Note: The core spec's attachment purpose registry appears to be a new
+registry that this extension is among the first to populate. The core
+spec itself does not define any purpose values. This may need discussion
+on the mailing list to confirm the registry exists and the registration
+template is correct.
+
+
+5. JSON SCHEMA (Appendix B)
+
+The JSON Schema in Appendix B extends the core vCon schema. It defines:
+  - New properties on the party object (sip_contact, sip_user_agent,
+    sip_display_name)
+  - New properties on the dialog object (sip_call_id, sip_from_tag,
+    sip_to_tag, sip_cseq)
+  - An enum constraint on the attachment purpose field when the
+    sip-signaling extension is present
+
+The schema uses JSON Schema draft-07 to match the core spec's approach.
+The party and dialog extensions use additionalProperties: true to ensure
+they compose correctly with the base schema.
+
+
+6. EXAMPLE VCONS (Appendix A)
+
+Two example vCons are included:
+
+  A.1. Minimal SIP Call - Shows the simplest useful case: a basic
+       two-party call with just the party extensions and an INVITE
+       attachment. This is what a "minimal producer" (Section 8.1)
+       would generate.
+
+  A.2. Full SIP Trace with STIR/SHAKEN - Shows the complete picture:
+       all party and dialog extensions populated, a full message trace,
+       STIR certificates, and a verification report. This is what a
+       "full producer" (Section 8.2) would generate.
+
+The examples use realistic but fictional data. The SIP URIs, Call-IDs,
+and certificate data are fabricated. The base64url-encoded bodies in
+the examples are placeholders (noted as "[base64url-encoded...]").
+Real implementations would have actual encoded content there.
+
+
+7. OPEN QUESTIONS AND AREAS FOR FURTHER WORK
+
+7.1. Author Details
+The author/org fields are marked [TBD] throughout. These need to be
+filled in before submission.
+
+7.2. Attachment Purpose Registry
+Confirm with the WG chairs that the attachment purpose value registry
+exists or will exist in the core spec. If the core spec does not create
+this registry, this extension may need to create it.
+
+7.3. Relationship to draft-ietf-stir-passport-rcd
+The Rich Call Data (RCD) PASSporT extension is still a work in progress.
+The stir-passport-extended purpose value references this. If RCD
+reaches RFC status before this document, update the reference from
+Informative to Normative.
+
+7.4. SIP Message Size Considerations
+Full SIP message bodies can be large (especially with SDP, multipart
+MIME, large PASSporTs). The spec mentions storage considerations in
+Section 8.4 but does not set size limits. The WG may want to discuss
+whether to recommend maximum sizes for inline SIP message attachments
+vs. using external references.
+
+7.5. Call Transfer Scenarios
+Section 6 covers REFER and NOTIFY for transfers, but the interaction
+with the core spec's "transfer" dialog type (Section 4.3.1 of the core)
+could use more detailed guidance. A future revision or companion
+document might provide worked examples of how SIP REFER-based transfers
+map to vCon transfer-type dialog objects with the sip-signaling
+extension data.
+
+7.6. Conference Calls
+The current spec focuses on two-party calls. Multi-party conferences
+with SUBSCRIBE/NOTIFY for conference events (RFC 4575) are not covered.
+This could be a future extension or an update to this one.
+
+7.7. WebRTC and SIP Interworking
+Calls that originate as WebRTC and traverse a SIP gateway present
+interesting questions about which SIP headers to capture and how to
+represent the WebRTC side. Not addressed in the current draft.
+
+7.8. Privacy Classification of SIP Data
+Section 10 (Privacy Considerations) discusses the sensitivity of SIP
+data but does not define a formal privacy classification scheme. The
+vCon redaction mechanism (Section 4.1.8 of the core) applies, but
+specific guidance on which SIP fields should be redacted in which
+contexts could be valuable.
+
+
+8. DEVELOPMENT PROCESS NOTES
+
+The spec was developed in the following sequence:
+
+  1. Read and analyzed the core vCon spec (draft-ietf-vcon-vcon-core-02)
+     with particular attention to: the extension mechanism (Section 2.5),
+     the Party Object (Section 4.2), the Dialog Object (Section 4.3),
+     the Attachment Object (Section 4.4), and the IANA registries
+     (Section 6).
+
+  2. Read the vCon overview document (draft-ietf-vcon-overview-01) for
+     use case context, particularly the contact center use case and the
+     discussion of SIP/STIR data in the conversation lifecycle.
+
+  3. Identified the gaps: the core spec has sip, stir, and session_id
+     but lacks structured storage for full SIP signaling traces,
+     certificate chains, and the additional SIP identifiers needed
+     for production telephony systems.
+
+  4. Designed the extension architecture around three touchpoints:
+     Party Object (identity data), Dialog Object (session correlation),
+     Attachment Object (signaling payloads). This maps naturally to how
+     SIP data is used: you identify who (party), correlate sessions
+     (dialog), and capture what happened (attachments).
+
+  5. Drafted the I-D in IETF plain text format following the conventions
+     of the core spec. Used RFC 2119/8174 keywords, proper section
+     numbering, IANA considerations, security/privacy considerations,
+     normative/informative references, and appendix examples.
+
+  6. Validated the JSON Schema fragments against the examples to ensure
+     consistency.
+
+The document is approximately 33 pages in IETF I-D format and is
+structured to be ready for submission once author details are filled in
+and the WG has had a chance to review.
+
+
+9. FORMATTING AND TOOLING NOTES
+
+The draft is currently in plain text IETF I-D format (72-character line
+width, form feed page breaks). For ongoing development:
+
+  - If the team uses xml2rfc, the document would need to be converted
+    to XML source format. The structure maps cleanly to xml2rfc sections.
+
+  - If the team uses kramdown-rfc, the markdown version
+    (draft-vcon-sip-signaling-00.md) can serve as a starting point,
+    though it would need kramdown-specific frontmatter and formatting.
+
+  - The .txt file is suitable for direct submission to the IETF
+    datatracker if that is the preferred workflow.
+
+A markdown version (.md) was also produced during development and may
+be useful for collaborative editing.
