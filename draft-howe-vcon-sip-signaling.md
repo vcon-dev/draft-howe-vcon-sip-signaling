@@ -86,6 +86,31 @@ informative:
     seriesinfo:
       "Public Law": "116-105"
 
+  I-D.draft-ietf-vcon-privacy-primer:
+    target: https://datatracker.ietf.org/doc/draft-ietf-vcon-privacy-primer/
+    title: "Privacy Primer for vCon Developers"
+    author:
+      -
+        ins: D. James
+        name: Diana James
+      -
+        ins: T. McCarthy-Howe
+        name: Thomas McCarthy-Howe
+    date: July 2025
+    seriesinfo:
+      Internet-Draft: draft-ietf-vcon-privacy-primer-00
+
+  I-D.draft-ietf-vcon-overview:
+    target: https://datatracker.ietf.org/doc/draft-ietf-vcon-overview/
+    title: "The vCon - Conversation Data Container - Overview"
+    author:
+      -
+        ins: T. McCarthy-Howe
+        name: Thomas McCarthy-Howe
+    date: March 2026
+    seriesinfo:
+      Internet-Draft: draft-ietf-vcon-overview-01
+
 --- abstract
 
 This document defines a vCon extension for capturing Session
@@ -105,7 +130,8 @@ additional data.
 
 The vCon conversation data container {{I-D.draft-ietf-vcon-vcon-core}} provides a standardized
 framework for exchanging conversational data across platforms and
-trust boundaries.  The core vCon specification includes basic support
+trust boundaries (see {{I-D.draft-ietf-vcon-overview}} for an overview of vCon use cases and
+architecture).  The core vCon specification includes basic support
 for SIP-originated conversations through the Party Object's "sip"
 and "stir" parameters, and the Dialog Object's "session_id"
 parameter.  However, many use cases require richer SIP signaling
@@ -954,7 +980,9 @@ parameter for externally referenced certificates.
 
 SIP signaling frequently contains personally identifiable
 information (PII) including telephone numbers, SIP URIs, display
-names, IP addresses, and geolocation data.
+names, IP addresses, and geolocation data.  Implementors should
+consult {{I-D.draft-ietf-vcon-privacy-primer}} for general guidance on privacy
+best practices for vCon developers.
 
 The vCon redaction mechanism (Section 4.1.8 of {{I-D.draft-ietf-vcon-vcon-core}}) SHOULD be
 used to create redacted versions of vCons when SIP signaling data
