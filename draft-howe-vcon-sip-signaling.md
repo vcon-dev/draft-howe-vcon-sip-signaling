@@ -3,7 +3,7 @@ title: "vCon Extension for SIP Signaling and STIR/SHAKEN Data"
 abbrev: "vCon SIP Signaling"
 category: std
 docname: draft-howe-vcon-sip-signaling-latest
-date: 2026-02
+date: 2026-04
 ipr: trust200902
 area: "Applications and Real-Time"
 workgroup: "vCon"

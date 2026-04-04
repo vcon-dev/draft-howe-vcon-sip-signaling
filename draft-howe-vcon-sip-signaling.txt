@@ -4,8 +4,8 @@
 
 vCon                                                    T. McCarthy-Howe
 Internet-Draft                                                    VCONIC
-Intended status: Standards Track                           February 2026
-Expires: 1 September 2026
+Intended status: Standards Track                              April 2026
+Expires: 6 October 2026
 
 
          vCon Extension for SIP Signaling and STIR/SHAKEN Data
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 August 2026.
+   This Internet-Draft will expire on 3 October 2026.
 
 Copyright Notice
 
