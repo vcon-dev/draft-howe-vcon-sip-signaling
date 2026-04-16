@@ -1,0 +1,825 @@
+{
+  "schema_version": "1.0.0",
+  "repo": "draft-howe-vcon-sip-signaling",
+  "repo_version": null,
+  "archetype": "ietf-draft",
+  "generated_at": "2026-04-16T15:15:44.302512+00:00",
+  "stats": {
+    "node_count": 77,
+    "edge_count": 44
+  },
+  "nodes": [
+    {
+      "id": "document:draft",
+      "type": "document",
+      "name": "draft-howe-vcon-sip-signaling",
+      "file": "draft-howe-vcon-sip-signaling.md"
+    },
+    {
+      "id": "section:introduction",
+      "type": "section",
+      "name": "Introduction",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 129,
+      "level": 1
+    },
+    {
+      "id": "section:conventions-and-definitions",
+      "type": "section",
+      "name": "Conventions and Definitions",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 171,
+      "level": 1
+    },
+    {
+      "id": "section:extension-overview",
+      "type": "section",
+      "name": "Extension Overview",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 204,
+      "level": 1
+    },
+    {
+      "id": "section:extension-name-and-classification",
+      "type": "section",
+      "name": "Extension Name and Classification",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 206,
+      "level": 2
+    },
+    {
+      "id": "section:architecture",
+      "type": "section",
+      "name": "Architecture",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 223,
+      "level": 2
+    },
+    {
+      "id": "section:relationship-to-existing-vcon-parameters",
+      "type": "section",
+      "name": "Relationship to Existing vCon Parameters",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 246,
+      "level": 2
+    },
+    {
+      "id": "section:party-object-extension-parameters",
+      "type": "section",
+      "name": "Party Object Extension Parameters",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 264,
+      "level": 1
+    },
+    {
+      "id": "section:sip-contact",
+      "type": "section",
+      "name": "sip_contact",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 271,
+      "level": 2
+    },
+    {
+      "id": "section:sip-user-agent",
+      "type": "section",
+      "name": "sip_user_agent",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 290,
+      "level": 2
+    },
+    {
+      "id": "section:sip-display-name",
+      "type": "section",
+      "name": "sip_display_name",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 305,
+      "level": 2
+    },
+    {
+      "id": "section:dialog-object-extension-parameters",
+      "type": "section",
+      "name": "Dialog Object Extension Parameters",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 324,
+      "level": 1
+    },
+    {
+      "id": "section:sip-call-id",
+      "type": "section",
+      "name": "sip_call_id",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 331,
+      "level": 2
+    },
+    {
+      "id": "section:sip-from-tag",
+      "type": "section",
+      "name": "sip_from_tag",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 352,
+      "level": 2
+    },
+    {
+      "id": "section:sip-to-tag",
+      "type": "section",
+      "name": "sip_to_tag",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 364,
+      "level": 2
+    },
+    {
+      "id": "section:sip-cseq",
+      "type": "section",
+      "name": "sip_cseq",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 377,
+      "level": 2
+    },
+    {
+      "id": "section:sip-signaling-attachments",
+      "type": "section",
+      "name": "SIP Signaling Attachments",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 392,
+      "level": 1
+    },
+    {
+      "id": "section:individual-sip-messages",
+      "type": "section",
+      "name": "Individual SIP Messages",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 421,
+      "level": 2
+    },
+    {
+      "id": "section:purpose-values-for-sip-methods-purpose-values",
+      "type": "section",
+      "name": "Purpose Values for SIP Methods {#purpose-values}",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 428,
+      "level": 3
+    },
+    {
+      "id": "section:media-type",
+      "type": "section",
+      "name": "Media Type",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 461,
+      "level": 3
+    },
+    {
+      "id": "section:sip-message-trace",
+      "type": "section",
+      "name": "SIP Message Trace",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 507,
+      "level": 2
+    },
+    {
+      "id": "section:trace-format",
+      "type": "section",
+      "name": "Trace Format",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 516,
+      "level": 3
+    },
+    {
+      "id": "section:sdp-attachments",
+      "type": "section",
+      "name": "SDP Attachments",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 650,
+      "level": 2
+    },
+    {
+      "id": "section:sip-header-summary",
+      "type": "section",
+      "name": "SIP Header Summary",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 677,
+      "level": 2
+    },
+    {
+      "id": "section:stir-shaken-extended-data",
+      "type": "section",
+      "name": "STIR/SHAKEN Extended Data",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 711,
+      "level": 1
+    },
+    {
+      "id": "section:relationship-to-party-stir-parameter",
+      "type": "section",
+      "name": "Relationship to Party stir Parameter",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 721,
+      "level": 2
+    },
+    {
+      "id": "section:stir-certificate-attachments",
+      "type": "section",
+      "name": "STIR Certificate Attachments",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 739,
+      "level": 2
+    },
+    {
+      "id": "section:stir-verification-report-attachments",
+      "type": "section",
+      "name": "STIR Verification Report Attachments",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 772,
+      "level": 2
+    },
+    {
+      "id": "section:extended-passport-attachments",
+      "type": "section",
+      "name": "Extended PASSporT Attachments",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 838,
+      "level": 2
+    },
+    {
+      "id": "section:implementation-guidance",
+      "type": "section",
+      "name": "Implementation Guidance",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 866,
+      "level": 1
+    },
+    {
+      "id": "section:minimal-producers",
+      "type": "section",
+      "name": "Minimal Producers",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 870,
+      "level": 2
+    },
+    {
+      "id": "section:full-producers",
+      "type": "section",
+      "name": "Full Producers",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 887,
+      "level": 2
+    },
+    {
+      "id": "section:consumers",
+      "type": "section",
+      "name": "Consumers",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 914,
+      "level": 2
+    },
+    {
+      "id": "section:storage-considerations",
+      "type": "section",
+      "name": "Storage Considerations",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 933,
+      "level": 2
+    },
+    {
+      "id": "section:security-considerations",
+      "type": "section",
+      "name": "Security Considerations",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 952,
+      "level": 1
+    },
+    {
+      "id": "section:privacy-considerations",
+      "type": "section",
+      "name": "Privacy Considerations",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 979,
+      "level": 1
+    },
+    {
+      "id": "section:iana-considerations",
+      "type": "section",
+      "name": "IANA Considerations",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1008,
+      "level": 1
+    },
+    {
+      "id": "section:vcon-extension-names-registry",
+      "type": "section",
+      "name": "vCon Extension Names Registry",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1010,
+      "level": 2
+    },
+    {
+      "id": "section:party-object-parameter-names-registry",
+      "type": "section",
+      "name": "Party Object Parameter Names Registry",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1029,
+      "level": 2
+    },
+    {
+      "id": "section:dialog-object-parameter-names-registry",
+      "type": "section",
+      "name": "Dialog Object Parameter Names Registry",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1040,
+      "level": 2
+    },
+    {
+      "id": "section:attachment-purpose-values",
+      "type": "section",
+      "name": "Attachment Purpose Values",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1052,
+      "level": 2
+    },
+    {
+      "id": "section:example-vcons",
+      "type": "section",
+      "name": "Example vCons",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1081,
+      "level": 1
+    },
+    {
+      "id": "section:minimal-sip-call",
+      "type": "section",
+      "name": "Minimal SIP Call",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1083,
+      "level": 2
+    },
+    {
+      "id": "section:full-sip-trace-with-stir-shaken",
+      "type": "section",
+      "name": "Full SIP Trace with STIR/SHAKEN",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1143,
+      "level": 2
+    },
+    {
+      "id": "section:json-schema-extension",
+      "type": "section",
+      "name": "JSON Schema Extension",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 1301,
+      "level": 1
+    },
+    {
+      "id": "reference:rfc2119",
+      "type": "reference",
+      "name": "RFC 2119",
+      "url": "https://www.rfc-editor.org/rfc/rfc2119"
+    },
+    {
+      "id": "reference:rfc8174",
+      "type": "reference",
+      "name": "RFC 8174",
+      "url": "https://www.rfc-editor.org/rfc/rfc8174"
+    },
+    {
+      "id": "reference:rfc3261",
+      "type": "reference",
+      "name": "RFC 3261",
+      "url": "https://www.rfc-editor.org/rfc/rfc3261"
+    },
+    {
+      "id": "reference:rfc8225",
+      "type": "reference",
+      "name": "RFC 8225",
+      "url": "https://www.rfc-editor.org/rfc/rfc8225"
+    },
+    {
+      "id": "reference:rfc8588",
+      "type": "reference",
+      "name": "RFC 8588",
+      "url": "https://www.rfc-editor.org/rfc/rfc8588"
+    },
+    {
+      "id": "reference:rfc8866",
+      "type": "reference",
+      "name": "RFC 8866",
+      "url": "https://www.rfc-editor.org/rfc/rfc8866"
+    },
+    {
+      "id": "reference:rfc3311",
+      "type": "reference",
+      "name": "RFC 3311",
+      "url": "https://www.rfc-editor.org/rfc/rfc3311"
+    },
+    {
+      "id": "reference:rfc3515",
+      "type": "reference",
+      "name": "RFC 3515",
+      "url": "https://www.rfc-editor.org/rfc/rfc3515"
+    },
+    {
+      "id": "reference:rfc5280",
+      "type": "reference",
+      "name": "RFC 5280",
+      "url": "https://www.rfc-editor.org/rfc/rfc5280"
+    },
+    {
+      "id": "reference:rfc7989",
+      "type": "reference",
+      "name": "RFC 7989",
+      "url": "https://www.rfc-editor.org/rfc/rfc7989"
+    },
+    {
+      "id": "reference:rfc8555",
+      "type": "reference",
+      "name": "RFC 8555",
+      "url": "https://www.rfc-editor.org/rfc/rfc8555"
+    },
+    {
+      "id": "reference:draft-ietf-stir-passport-rcd-26",
+      "type": "reference",
+      "name": "draft-ietf-stir-passport-rcd-26"
+    },
+    {
+      "id": "requirement:req-1",
+      "type": "requirement",
+      "name": "SHALL: The key words \"MUST\", \"MUST NOT\", \"REQUIRED\", \"SHALL\", \"SHALL",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 173,
+      "keyword": "SHALL"
+    },
+    {
+      "id": "requirement:req-2",
+      "type": "requirement",
+      "name": "SHOULD NOT: NOT\", \"SHOULD\", \"SHOULD NOT\", \"RECOMMENDED\", \"NOT RECOMMENDED\",",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 174,
+      "keyword": "SHOULD NOT"
+    },
+    {
+      "id": "requirement:req-3",
+      "type": "requirement",
+      "name": "MUST NOT: The \"sip-signaling\" token MUST NOT be listed in the vCon critical",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 217,
+      "keyword": "MUST NOT"
+    },
+    {
+      "id": "requirement:req-4",
+      "type": "requirement",
+      "name": "SHOULD: document SHOULD include \"sip-signaling\" in its extensions parameter.",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 221,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-5",
+      "type": "requirement",
+      "name": "SHOULD: When both session_id and sip_call_id are available, both SHOULD be",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 261,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-6",
+      "type": "requirement",
+      "name": "SHOULD: \"sips:\") SHOULD be included.",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 284,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-7",
+      "type": "requirement",
+      "name": "MUST: The value MUST be the complete Call-ID header field value as defined",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 339,
+      "keyword": "MUST"
+    },
+    {
+      "id": "requirement:req-8",
+      "type": "requirement",
+      "name": "SHOULD: Dialog Object SHOULD carry the same sip_call_id value.",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 350,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-9",
+      "type": "requirement",
+      "name": "SHOULD: All SIP signaling attachments SHOULD include the following",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 398,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-10",
+      "type": "requirement",
+      "name": "SHOULD: SHOULD include both provisional (1xx) and final (2xx-6xx)",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 441,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-11",
+      "type": "requirement",
+      "name": "MUST: Individual SIP messages stored as attachments MUST use the media",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 463,
+      "keyword": "MUST"
+    },
+    {
+      "id": "requirement:req-12",
+      "type": "requirement",
+      "name": "SHOULD: The SIP message SHOULD be stored in its complete wire format",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 466,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-13",
+      "type": "requirement",
+      "name": "MUST: message MUST be UTF-8 encoded when stored inline using the \"none\"",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 468,
+      "keyword": "MUST"
+    },
+    {
+      "id": "requirement:req-14",
+      "type": "requirement",
+      "name": "MUST: : The SIP Call-ID for this trace.  MUST match the",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 547,
+      "keyword": "MUST"
+    },
+    {
+      "id": "requirement:req-15",
+      "type": "requirement",
+      "name": "MUST NOT: for requests.  MUST NOT be present for responses.",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 572,
+      "keyword": "MUST NOT"
+    },
+    {
+      "id": "requirement:req-16",
+      "type": "requirement",
+      "name": "MUST NOT: Present for responses.  MUST NOT be present for requests.",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 576,
+      "keyword": "MUST NOT"
+    },
+    {
+      "id": "requirement:req-17",
+      "type": "requirement",
+      "name": "MUST NOT: \"Busy Here\").  Present for responses.  MUST NOT be present",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 580,
+      "keyword": "MUST NOT"
+    },
+    {
+      "id": "requirement:req-18",
+      "type": "requirement",
+      "name": "SHOULD: key-value pairs.  Header names SHOULD use their canonical",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 585,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-19",
+      "type": "requirement",
+      "name": "SHOULD: form.  Multi-valued headers SHOULD use JSON arrays.  This",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 586,
+      "keyword": "SHOULD"
+    },
+    {
+      "id": "requirement:req-20",
+      "type": "requirement",
+      "name": "SHOULD: bodies, Base64url encoding SHOULD be used with a separate",
+      "file": "draft-howe-vcon-sip-signaling.md",
+      "line": 593,
+      "keyword": "SHOULD"
+    }
+  ],
+  "edges": [
+    {
+      "from": "document:draft",
+      "to": "section:introduction",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:conventions-and-definitions",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:extension-overview",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:extension-name-and-classification",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:architecture",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:relationship-to-existing-vcon-parameters",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:party-object-extension-parameters",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-contact",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-user-agent",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-display-name",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:dialog-object-extension-parameters",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-call-id",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-from-tag",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-to-tag",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-cseq",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-signaling-attachments",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:individual-sip-messages",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:purpose-values-for-sip-methods-purpose-values",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:media-type",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-message-trace",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:trace-format",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sdp-attachments",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:sip-header-summary",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:stir-shaken-extended-data",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:relationship-to-party-stir-parameter",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:stir-certificate-attachments",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:stir-verification-report-attachments",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:extended-passport-attachments",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:implementation-guidance",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:minimal-producers",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:full-producers",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:consumers",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:storage-considerations",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:security-considerations",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:privacy-considerations",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:iana-considerations",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:vcon-extension-names-registry",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:party-object-parameter-names-registry",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:dialog-object-parameter-names-registry",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:attachment-purpose-values",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:example-vcons",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:minimal-sip-call",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:full-sip-trace-with-stir-shaken",
+      "type": "contains"
+    },
+    {
+      "from": "document:draft",
+      "to": "section:json-schema-extension",
+      "type": "contains"
+    }
+  ],
+  "subsystems": []
+}
